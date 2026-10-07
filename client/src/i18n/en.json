@@ -1,0 +1,680 @@
+{
+  "common": {
+    "back": "Back",
+    "next": "Next",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "retry": "Try again",
+    "loading": "Loading…",
+    "select": "Select…",
+    "skip": "Skip to main content",
+    "skip2": "Skip this step",
+    "viewAll": "View all",
+    "clearAll": "Clear all"
+  },
+  "lang": {
+    "switch": "Language",
+    "other": "ar"
+  },
+  "brand": {
+    "tagline": "Smarter Care. Safer School Days.",
+    "byTopTech": "Built by Top Tech",
+    "prototype": "Student-designed prototype",
+    "teamAlt": "The Top Tech team",
+    "logoAlt": "School logo"
+  },
+  "welcome": {
+    "title": "Welcome to SafePulse",
+    "continue": "Continue",
+    "loading": "Opening SafePulse"
+  },
+  "greeting": {
+    "morning": "Good Morning",
+    "afternoon": "Good Afternoon",
+    "evening": "Good Evening"
+  },
+  "login": {
+    "subtitle": "Choose how you want to sign in to follow school health support, meals and daily routines.",
+    "continueAs": "Continue",
+    "nurseTitle": "Nurse sign-in",
+    "parentTitle": "Parent / Guardian sign-in",
+    "credentials": "Enter your account details",
+    "login": "Login",
+    "signingIn": "Signing in…",
+    "forgot": "Forgot password?",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
+  },
+  "role": {
+    "nurse": "Nurse",
+    "parent": "Parent / Guardian",
+    "nurseBadge": "Nurse",
+    "parentBadge": "Parent / Guardian",
+    "nurseDesc": "Register students, analyze meals, review records and keep families informed.",
+    "parentDesc": "See your child's latest updates, meal reviews, schedule and wellness suggestions."
+  },
+  "demo": {
+    "explore": "Explore Demo",
+    "exploreHint": "No account needed. Opens a ready-made demo with fictional students and records.",
+    "nurse": "Demo Nurse",
+    "parent": "Demo Parent",
+    "fictional": "Demo data is fictional.",
+    "badge": "Demo mode",
+    "reset": "Reset demo data",
+    "resetConfirm": "This will erase all demo changes (including students you registered) and restore the original fictional demo data.",
+    "resetYes": "Reset demo",
+    "resetDone": "Demo data restored."
+  },
+  "errors": {
+    "login": "Incorrect email or password.",
+    "network": "Something went wrong. Please try again.",
+    "generic": "Something went wrong. Please try again.",
+    "upload": "Unable to upload the image. Please try again.",
+    "ai": "AI analysis is temporarily unavailable. You can review the meal manually.",
+    "noFood": "No food was detected in this image. Try another photo or choose foods manually.",
+    "required": "This field is required.",
+    "email": "Please enter a valid email address.",
+    "futureDate": "The date cannot be in the future.",
+    "tooMany": "Too many attempts. Please wait a few minutes and try again.",
+    "studentCodeExists": "A student with this ID already exists.",
+    "emailInUse": "This email belongs to a different kind of account. Please use another email.",
+    "weakPassword": "Password must be at least 8 characters.",
+    "passwordMismatch": "The passwords do not match.",
+    "invalidToken": "This reset link is invalid or has expired.",
+    "currentPassword": "The current password is incorrect.",
+    "demoLocked": "Demo accounts cannot change their password.",
+    "forbidden": "You do not have permission to do that.",
+    "validation": "Please check the information you entered."
+  },
+  "access": {
+    "title": "Access restricted",
+    "nurseOnly": "This area is only for school nurses. Your account does not have access.",
+    "parentOnly": "This area is only for parents and guardians. Your account does not have access.",
+    "goHome": "Go to my dashboard"
+  },
+  "nav": {
+    "main": "Main navigation",
+    "dashboard": "Dashboard",
+    "register": "Register Student",
+    "analyzeMeal": "Analyze Meal",
+    "students": "Students",
+    "notifications": "Notifications",
+    "insights": "Patterns & Insights",
+    "logout": "Log out",
+    "more": "More",
+    "unread": "{n} unread",
+    "home": "Home",
+    "meals": "Meals",
+    "trends": "Health Trends",
+    "schedule": "School Day",
+    "wellness": "Wellness Plan",
+    "patterns": "Possible Patterns"
+  },
+  "footer": {
+    "nav": "Footer navigation",
+    "login": "Sign in",
+    "about": "About SafePulse",
+    "whatsNext": "What's Next?",
+    "topTech": "Top Tech"
+  },
+  "disclaimer": {
+    "full": "SafePulse is a student-designed prototype for educational and innovation purposes. It does not replace professional medical advice or an individual medical care plan.",
+    "short": "SafePulse is a student-designed prototype. It does not replace professional medical advice or the individual care plan. Follow professional health guidance."
+  },
+  "unit": {
+    "mgdl": "mg/dL",
+    "g": "g"
+  },
+  "day": {
+    "sun": "Sunday",
+    "mon": "Monday",
+    "tue": "Tuesday",
+    "wed": "Wednesday",
+    "thu": "Thursday",
+    "fri": "Friday",
+    "sat": "Saturday"
+  },
+  "rel": {
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "inDays": "In {n} days"
+  },
+  "grade": {
+    "fmt": "Grade {n}"
+  },
+  "status": {
+    "green": "Good Match",
+    "yellow": "Review",
+    "red": "Needs Attention",
+    "greenDesc": "Based on the estimate, this meal looks like a good match.",
+    "yellowDesc": "This meal may benefit from a closer look together with the student's individual care plan.",
+    "redDesc": "This meal may require additional review based on estimated carbohydrate content and the student's individual care plan."
+  },
+  "studentStatus": {
+    "ok": "All good",
+    "review": "Review",
+    "attention": "Needs attention",
+    "none": "No recent data"
+  },
+  "mealType": {
+    "breakfast": "Breakfast",
+    "lunch": "Lunch",
+    "snack": "Snack"
+  },
+  "activity": {
+    "class": "Normal Class",
+    "pe": "PE",
+    "break": "Break",
+    "lunch": "Lunch",
+    "exam": "Exam",
+    "event": "School Event",
+    "other": "Other"
+  },
+  "examType": {
+    "quiz": "Quiz",
+    "monthly": "Monthly exam",
+    "midterm": "Midterm",
+    "final": "Final exam",
+    "other": "Other"
+  },
+  "examText": {
+    "monthly_exam": "Monthly exam",
+    "quiz": "Quiz",
+    "midterm": "Midterm",
+    "final_exam": "Final exam",
+    "other": "Other"
+  },
+  "subject": {
+    "mathematics": "Mathematics",
+    "science": "Science",
+    "break": "Break",
+    "pe": "PE",
+    "art": "Art",
+    "english": "English",
+    "lunch": "Lunch",
+    "social_studies": "Social Studies",
+    "arabic": "Arabic"
+  },
+  "place": {
+    "room": "Room {n}",
+    "lab": "Lab {n}",
+    "courtyard": "Courtyard",
+    "gymnasium": "Gymnasium",
+    "cafeteria": "Cafeteria"
+  },
+  "diabetes": {
+    "type1": "Type 1",
+    "type2": "Type 2",
+    "other": "Other type",
+    "unspecified": "Not specified"
+  },
+  "relationship": {
+    "mother": "Mother",
+    "father": "Father",
+    "guardian": "Guardian",
+    "other": "Other"
+  },
+  "contact": {
+    "app": "In-app notifications",
+    "phone": "Phone call",
+    "sms": "SMS",
+    "email": "Email"
+  },
+  "field": {
+    "email": "Email",
+    "password": "Password",
+    "currentPassword": "Current password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm new password",
+    "studentName": "Student name",
+    "studentId": "Student ID",
+    "grade": "Grade",
+    "section": "Section",
+    "diabetesType": "Diabetes type / category",
+    "diagnosisDate": "Diagnosis date",
+    "parentName": "Parent / Guardian name",
+    "relationship": "Relationship",
+    "phone": "Phone",
+    "preferredContact": "Preferred communication method",
+    "emergencyContact": "Emergency contact",
+    "day": "Day",
+    "startTime": "Start time",
+    "endTime": "End time",
+    "subject": "Subject",
+    "classroom": "Classroom",
+    "activityType": "Activity type",
+    "date": "Date",
+    "time": "Time",
+    "examType": "Exam type"
+  },
+  "password": {
+    "rule": "At least 8 characters."
+  },
+  "forgot": {
+    "title": "Forgot your password?",
+    "body": "Enter your account email. If it matches a parent account, we will send a link to set a new password.",
+    "send": "Send reset link",
+    "sentTitle": "Check your inbox",
+    "sentBody": "If an account exists for that email, a reset link has been sent. If email is not set up for this site, ask the school nurse for help."
+  },
+  "reset": {
+    "title": "Set a new password",
+    "save": "Save password",
+    "done": "Password updated"
+  },
+  "changePw": {
+    "title": "Choose your own password",
+    "body": "You signed in with a temporary password. Please set a new one to continue."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The page you are looking for does not exist.",
+    "home": "Back to start"
+  },
+  "core": {
+    "title": "SafePulse Core",
+    "hint": "Hover or tap an element to see how it fits together.",
+    "vision": {
+      "title": "AI Vision",
+      "desc": "Looks at a meal photo and identifies foods to estimate nutrition. Prototype estimates only."
+    },
+    "meals": {
+      "title": "Meals",
+      "desc": "Turns each meal into a simple Good Match / Review / Needs Attention view with gentle suggestions."
+    },
+    "glucose": {
+      "title": "Glucose",
+      "desc": "Shows recorded glucose readings over time so families and nurses can see the bigger picture."
+    },
+    "schedule": {
+      "title": "Schedule",
+      "desc": "Keeps classes, PE, lunch and breaks in one timeline for the student's day."
+    },
+    "school": {
+      "title": "School",
+      "desc": "Brings exams and school events into view so routines can be planned ahead."
+    },
+    "family": {
+      "title": "Family",
+      "desc": "Gives each parent a private view of only their own child, with supportive notifications."
+    }
+  },
+  "about": {
+    "title": "Smarter care for safer school days",
+    "body": "SafePulse helps school nurses support students living with diabetes and keeps a clear, caring line of communication with their families — combining school health, AI-assisted meal awareness, schedules and recorded readings.",
+    "builtBy": "Built by Top Tech",
+    "quote": "We believe technology can transform everyday challenges into meaningful solutions.",
+    "whatsNext": "What's Next?",
+    "futureLabel": "Future Development"
+  },
+  "next": {
+    "ai": {
+      "title": "Real AI food recognition",
+      "desc": "Connect a vision model trained and tested for school meals."
+    },
+    "portion": {
+      "title": "Better portion estimation",
+      "desc": "Improve estimates of serving sizes from photos."
+    },
+    "monitor": {
+      "title": "Approved glucose monitor integrations",
+      "desc": "Connect approved devices, with consent and clinical review."
+    },
+    "cloud": {
+      "title": "Secure cloud deployment",
+      "desc": "Managed hosting, backups and audit logs."
+    },
+    "pro": {
+      "title": "Professional healthcare collaboration",
+      "desc": "Work with doctors and clinics to validate content."
+    },
+    "multi": {
+      "title": "Multi-school deployment",
+      "desc": "Support many schools, each with its own team."
+    },
+    "analytics": {
+      "title": "Advanced analytics",
+      "desc": "Richer, privacy-respecting views of trends."
+    },
+    "a11y": {
+      "title": "Improved accessibility",
+      "desc": "More languages, voice support and reading aids."
+    }
+  },
+  "nurse": {
+    "dashboard": "Nurse Dashboard",
+    "dashboardSub": "Everything you need to support students today.",
+    "overview": "Overview",
+    "totalStudents": "Total Students",
+    "needsReview": "Needs Review",
+    "todaysActivities": "Today's Activities",
+    "todaysHint": "Students with PE, exams or events",
+    "quickActions": "What would you like to do?",
+    "needsReviewList": "Students to look at"
+  },
+  "action": {
+    "register": "Register Student",
+    "analyze": "Analyze Meal",
+    "students": "Students",
+    "notifications": "Notifications",
+    "insights": "Patterns & Insights"
+  },
+  "actionHint": {
+    "register": "Add a student, care information and the parent account",
+    "analyze": "Upload or scan a meal with the AI Meal Scanner",
+    "students": "Search, filter and open student profiles",
+    "notifications": "Your inbox of follow-ups",
+    "insights": "Possible patterns in recorded history"
+  },
+  "empty": {
+    "needsReview": "Nothing needs review",
+    "needsReviewHint": "Students whose latest meal is marked Review or Needs Attention will appear here.",
+    "students": "No students registered yet.",
+    "studentsHint": "Register your first student to start tracking meals and schedules.",
+    "noMatch": "No students match",
+    "noMatchHint": "Try a different search or clear the filters.",
+    "notifications": "No notifications.",
+    "notificationsHint": "New updates will show up here.",
+    "meals": "No meal analyses yet.",
+    "mealsHint": "Meal reviews appear here after the nurse analyzes a meal.",
+    "glucose": "No glucose records available.",
+    "glucoseHint": "Recorded readings will appear here.",
+    "schedule": "Nothing scheduled for this day.",
+    "scheduleHint": "The school nurse can add this day's activities.",
+    "scheduleHintNurse": "Use \"Add activity\" to build this day.",
+    "exams": "No upcoming exams.",
+    "examsHint": "Exams added by the school nurse will appear here.",
+    "children": "No student linked yet",
+    "childrenHint": "Ask the school nurse to link your child to this account."
+  },
+  "students": {
+    "sub": "{n} registered students",
+    "search": "Search by name or ID",
+    "gradeFilter": "Filter by grade",
+    "allGrades": "All grades",
+    "statusFilter": "Filter by status",
+    "results": "{n} students shown",
+    "col": {
+      "student": "Student",
+      "grade": "Grade",
+      "glucose": "Latest glucose",
+      "meal": "Last meal",
+      "next": "Next activity",
+      "status": "Status"
+    }
+  },
+  "filter": {
+    "all": "All",
+    "review": "Needs review",
+    "attention": "Needs attention",
+    "ok": "All good",
+    "none": "No recent data"
+  },
+  "tabs": {
+    "overview": "Overview",
+    "medical": "Medical / Support",
+    "glucose": "Glucose Records",
+    "meals": "Meals",
+    "schedule": "Schedule",
+    "exams": "Exams",
+    "notifications": "Notifications",
+    "patterns": "Patterns & Insights"
+  },
+  "profile": {
+    "sections": "Student sections",
+    "notFound": "Student not found",
+    "parent": "Parent / Guardian",
+    "notifNote": "These are the notifications sent to this student's parent account."
+  },
+  "medical": {
+    "note": "Information is stored exactly as entered by the nurse. SafePulse does not create any automatic medical recommendation from these fields.",
+    "notEntered": "Not entered",
+    "allergies": "Known allergies",
+    "conditions": "Important medical conditions",
+    "hypoHistory": "Hypoglycemia history",
+    "hyperHistory": "Hyperglycemia history",
+    "medicationInfo": "Medication / insulin information (according to the prescribed care plan)",
+    "foodRestrictions": "Food restrictions",
+    "activityConsiderations": "Physical activity considerations",
+    "emergencyInstructions": "Emergency instructions",
+    "physicianContact": "Physician / clinic contact",
+    "carePlanNotes": "Individual care plan notes"
+  },
+  "insights": {
+    "sub": "Possible patterns found in recorded history. Awareness only — never a medical prediction.",
+    "student": "Student"
+  },
+  "register": {
+    "title": "Register Student",
+    "sub": "Add the student, care information, school routine and the parent account in a few steps.",
+    "progress": "Registration progress",
+    "stepOf": "Step {n} of {total}",
+    "medicalNote": "Enter information exactly as written in the student's care plan. SafePulse never turns it into automatic recommendations, and never calculates insulin or medication.",
+    "emailHint": "This becomes the parent's login email.",
+    "emergencyHint": "Name and phone of an emergency contact.",
+    "reviewHint": "Check everything, then create the student and the parent account.",
+    "fieldsFilled": "Fields filled",
+    "scheduleItems": "Schedule activities",
+    "examItems": "Exams",
+    "accountNote": "A parent account will be created with a unique temporary password. The parent will be asked to choose their own password at first login.",
+    "create": "Create student & parent account",
+    "creating": "Creating…",
+    "doneTitle": "Student registered",
+    "doneBody": "{name} is now registered and the parent account is ready.",
+    "credentials": "Parent account",
+    "tempPassword": "Temporary password",
+    "copy": "Copy",
+    "copied": "Password copied.",
+    "showOnce": "This temporary password is shown only once and is stored securely (hashed). Share it with the parent privately.",
+    "emailSent": "A welcome email was sent to {email}.",
+    "emailNotSent": "No email was sent.",
+    "emailNotConfigured": "The email service is not configured, so please share the credentials with the parent yourself. You can view the prototype email below.",
+    "emailFailed": "The email service could not deliver the message. Please share the credentials with the parent yourself.",
+    "previewEmail": "View Prototype Email Preview",
+    "emailPreviewTitle": "Prototype Email Preview",
+    "previewNote": "This is a preview only. This message was not sent to anyone.",
+    "subject": "Subject",
+    "siblingLinked": "This parent already had a SafePulse account ({email}), so the student was linked to it. No new password was created.",
+    "openProfile": "Open student profile",
+    "another": "Register another student"
+  },
+  "step": {
+    "general": "General information",
+    "medical": "Medical / support",
+    "schedule": "School schedule",
+    "exams": "Exam schedule",
+    "parent": "Parent / guardian",
+    "review": "Review"
+  },
+  "schedule": {
+    "add": "Add activity",
+    "added": "Activity added.",
+    "removed": "Activity removed.",
+    "days": "School days",
+    "timeline": "Day timeline",
+    "today": "Today",
+    "now": "Now",
+    "next": "Next",
+    "timeOrder": "End time must be after start time.",
+    "quickFill": "Quick start: standard timetable",
+    "quickFillHint": "Fills Sunday–Thursday with a typical school day. Choose the PE days, then edit anything you like.",
+    "peDays": "PE days",
+    "fill": "Fill standard timetable"
+  },
+  "exams": {
+    "add": "Add exam",
+    "added": "Exam added.",
+    "removed": "Exam removed.",
+    "upcoming": "Upcoming exams",
+    "past": "Past exams",
+    "examWord": "Exam"
+  },
+  "scanner": {
+    "title": "AI Meal Scanner",
+    "sub": "Add a meal photo or choose a demo meal. SafePulse estimates nutrition and creates a supportive review for the parent.",
+    "details": "Meal details",
+    "student": "Student",
+    "selectStudent": "Select a student…",
+    "chooseStudent": "Please choose a student first.",
+    "mealType": "Meal",
+    "studentHint": "Latest recorded reading: {v} mg/dL",
+    "needStudent": "Register a student first, then you can analyze their meals.",
+    "photo": "Meal photo",
+    "drop": "Drag & drop a meal photo here",
+    "formats": "JPG, PNG or WebP · up to 6 MB",
+    "upload": "Upload image",
+    "camera": "Use camera",
+    "cameraPreview": "Camera preview",
+    "capture": "Capture photo",
+    "cameraDenied": "Camera is not available. You can pick a photo instead.",
+    "removePhoto": "Remove photo",
+    "analyze": "Analyze meal",
+    "demoModeNote": "AI vision is not connected, so uploaded photos use a clearly-labelled demo estimate. Connect an AI API key to enable real food recognition.",
+    "demoMeals": "Demo meals",
+    "demoMealsHint": "Tap a demo meal to see the full flow without a photo.",
+    "chooseManually": "Choose foods manually",
+    "manualHint": "Select the foods on the plate. SafePulse will estimate nutrition from typical portions.",
+    "searchFood": "Search foods",
+    "analyzeSelected": "Analyze {n} selected foods",
+    "reviewManually": "Review the meal manually",
+    "analyzing": "Analyzing meal",
+    "result": "Meal analysis result",
+    "parentNotified": "Parent notified. ",
+    "parentNotifiedHint": "A \"Meal Review\" notification was added to the parent's dashboard.",
+    "noParent": "No parent account is linked to this student, so no notification was created.",
+    "another": "Analyze another meal",
+    "viewProfile": "View meals in profile"
+  },
+  "pipeline": {
+    "scan": "Scanning meal...",
+    "identify": "Identifying foods...",
+    "estimate": "Estimating nutrition...",
+    "review": "Reviewing meal information...",
+    "insight": "Generating supportive insight..."
+  },
+  "meal": {
+    "prototypeEstimate": "Prototype AI Estimate",
+    "detectedFoods": "Detected Foods",
+    "nutritionTitle": "Estimated nutrition",
+    "carbs": "Carbohydrates",
+    "protein": "Protein",
+    "fat": "Fat",
+    "fiber": "Fiber",
+    "carbsShort": "{n} g carbs",
+    "photoAlt": "Meal photo",
+    "estimateNote": "Estimates only — not exact nutritional values.",
+    "demoStandIn": "The foods shown for this uploaded photo are a demo stand-in until an AI vision service is connected.",
+    "why": "Why?",
+    "looksBalanced": "Looks balanced",
+    "suggested": "Suggested Improvement",
+    "safetyNurse": "Review the student's individual care plan. SafePulse never calculates insulin or medication. Follow professional health guidance.",
+    "safetyParent": "This is a general awareness estimate. Review the student's individual care plan and follow professional health guidance."
+  },
+  "glucose": {
+    "recordsNote": "These are readings recorded by the school. They are shown for awareness and do not replace the care plan or professional advice.",
+    "latest": "Latest reading",
+    "latestLabel": "Latest recorded reading",
+    "average": "Average",
+    "range": "Lowest – highest",
+    "readingsCount": "{n} readings",
+    "tone": {
+      "low": "Below usual range",
+      "ok": "Within usual range",
+      "high": "Above usual range"
+    },
+    "add": "Add a glucose reading",
+    "value": "Reading",
+    "context": "When was it taken?",
+    "invalid": "Enter a whole number between 20 and 600.",
+    "added": "Reading saved.",
+    "ctx": {
+      "fasting": "Fasting / morning",
+      "before_meal": "Before a meal",
+      "after_meal": "After a meal",
+      "before_pe": "Before PE",
+      "after_pe": "After PE",
+      "exam_day": "Exam day",
+      "other": "Other"
+    }
+  },
+  "chart": {
+    "overTime": "Glucose over time",
+    "range": "Time range",
+    "days": "{n} days",
+    "glucose": "Glucose",
+    "glucoseAria": "Line chart of recorded glucose readings over time",
+    "examDay": "Exam day",
+    "peDay": "PE day",
+    "weekly": "Weekly overview",
+    "weeklyHint": "Average recorded reading for each school day.",
+    "weeklyAria": "Bar chart of average glucose by weekday",
+    "average": "Average",
+    "dayType": "Exam days & PE days",
+    "dayTypeHint": "Average reading on exam days, PE days and other days.",
+    "dayTypeAria": "Bar chart comparing average glucose on exam days, PE days and other days",
+    "examDays": "Exam days",
+    "peDays": "PE days",
+    "otherDays": "Other days",
+    "carbTitle": "Estimated carbohydrates per meal",
+    "carbHint": "Prototype estimates. Bar colour shows the meal status.",
+    "carbAria": "Bar chart of estimated carbohydrates for recent meals",
+    "carbs": "Carbs"
+  },
+  "notif": {
+    "new": "New",
+    "suggestion": "Suggestion",
+    "markRead": "Mark as read",
+    "markAll": "Mark all as read",
+    "allRead": "All notifications marked as read.",
+    "subNurse": "Follow-ups for you, such as meals that were flagged for review.",
+    "subParent": "Supportive updates from your child's school nurse."
+  },
+  "patterns": {
+    "title": "Possible Patterns",
+    "sub": "Gentle observations from recorded history.",
+    "label": "Possible pattern — not a medical prediction.",
+    "noCausation": "These are statistics about past records. They do not show that one thing causes another.",
+    "none": "No patterns found yet",
+    "notEnough": "More recorded readings are needed before patterns can be shown.",
+    "noneHint": "Nothing stands out in the recorded history.",
+    "slight": "Slight",
+    "noticeable": "Noticeable",
+    "basedOn": "Based on {n} readings",
+    "safety": "Patterns are for awareness only. Follow professional health guidance and the individual care plan.",
+    "cardHint": "Gentle observations from past records"
+  },
+  "wellness": {
+    "title": "My Wellness Plan",
+    "sub": "General, supportive ideas for everyday routines.",
+    "cardHint": "Meals, hydration, sleep, activity and more",
+    "intro": "These are general wellness ideas only. They are not medical advice and never include insulin, medication, diagnosis or treatment.",
+    "meals": "Meals",
+    "hydration": "Hydration",
+    "sleep": "Sleep",
+    "activity": "Physical Activity",
+    "stress": "Stress",
+    "school": "School Routine",
+    "generated": "Generated {d}",
+    "refresh": "Refresh ideas",
+    "updated": "Wellness ideas refreshed."
+  },
+  "parent": {
+    "child": "Child",
+    "following": "Following {name}",
+    "latestGlucose": "Latest Glucose Reading",
+    "latestMeal": "Latest Meal",
+    "nextActivity": "Next Activity",
+    "upcomingExam": "Upcoming Exam",
+    "viewMeal": "View meal details",
+    "fullSchedule": "See full day",
+    "mealsTitle": "Meal Reviews",
+    "mealsSub": "Recent meal assessments and gentle suggestions.",
+    "trendsTitle": "Health Trends",
+    "trendsSub": "Recorded glucose readings and charts.",
+    "scheduleTitle": "School Day",
+    "scheduleSub": "Today's timeline and upcoming exams."
+  }
+}
