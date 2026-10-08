@@ -71,6 +71,12 @@ export default function RegisterStudent() {
           <span className={`grid h-7 w-7 place-items-center rounded-full text-xs ${i === step ? 'bg-white text-brand-800' : i < step ? 'bg-mint-600 text-white' : 'bg-brand-100 text-brand-700'}`}>{i < step ? <Check className="h-4 w-4" aria-hidden /> : i + 1}</span>{label(s)}</button></li>))}</ol></nav>
       <div className="h-1.5 overflow-hidden rounded-full bg-brand-100" aria-hidden><div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-mint-500 transition-all" style={{ width: `${((step + 1) / STEPS.length) * 100}%` }} /></div>
 
+        <div className="flex flex-wrap justify-between gap-3 border-t border-brand-100 pt-5">
+          <button type="button" className="btn-soft" onClick={() => go(step - 1)} disabled={step === 0 || busy}><ArrowLeft className="h-5 w-5 rtl-flip" aria-hidden />{t('common.back')}</button>
+          {step < STEPS.length - 1 ? <button type="button" className="btn-primary" onClick={() => go(step + 1)}>{(step === 2 || step === 3) && !(step === 2 ? f.schedule.length : f.exams.length) ? t('common.skip2') : t('common.next')}<ArrowRight className="h-5 w-5 rtl-flip" aria-hidden /></button>
+            : <button type="button" className="btn-mint" onClick={submit} disabled={busy}>{busy ? <><Spinner />{t('register.creating')}</> : <><UserPlus className="h-5 w-5" aria-hidden />{t('register.create')}</>}</button>}
+        </div>
+        
       <section className="card space-y-5" aria-labelledby="step-h">
         <h2 id="step-h" ref={head} tabIndex={-1} className="text-xl font-extrabold text-brand-900 outline-none">{t('register.stepOf', { n: step + 1, total: STEPS.length })} — {label(STEPS[step])}</h2>
 
