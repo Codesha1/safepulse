@@ -28,7 +28,7 @@ const post = <R,>(u: string, b?: unknown) => req<R>('POST', u, b ?? {});
 const del = <R,>(u: string) => req<R>('DELETE', u);
 
 export interface RegisterPayload {
-  student: { name: string; code: string; grade: string; diabetesType: string; diagnosisDate: string };
+  student: { name: string; code?: string; grade: string; diabetesType: string; diagnosisDate: string };
   medical: Record<string, string>;
   schedule: { day: number; start: string; end?: string; subject: string; classroom?: string; type: string }[];
   exams: { subject: string; date: string; time: string; type?: string }[];

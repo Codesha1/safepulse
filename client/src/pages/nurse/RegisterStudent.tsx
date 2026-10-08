@@ -15,7 +15,7 @@ const STEPS = ['general', 'medical', 'schedule', 'exams', 'parent', 'review'] as
 type EventRow = { day: number; start: string; end: string; subject: string; classroom: string; type: string };
 type ExamRow = { subject: string; date: string; time: string; type: string };
 const emptyForm = () => ({
-  student: { name: '', code: '', gradeNo: '', section: '', diabetesType: '', diagnosisDate: '' },
+  student: { name: '', gradeNo: '', diabetesType: '', diagnosisDate: '' },
   medical: Object.fromEntries(MED.map((k) => [k, ''])) as Record<(typeof MED)[number], string>,
   schedule: [] as EventRow[], exams: [] as ExamRow[],
   parent: { name: '', relationship: 'mother', phone: '', email: '', preferredContact: 'app', emergencyContact: '' },
@@ -38,7 +38,7 @@ export default function RegisterStudent() {
 
   const validate = (i: number): Record<string, string> => {
     const e: Record<string, string> = {}; const req = t('errors.required');
-    if (i === 0) { if (!f.student.name.trim()) e.name = req; if (!f.student.code.trim()) e.code = req; if (!f.student.gradeNo) e.grade = req; if (f.student.diagnosisDate && f.student.diagnosisDate > todayYmd()) e.diagnosisDate = t('errors.futureDate'); }
+    if (i === 0) { if (!f.student.name.trim()) e.name = req; if (!f.student.gradeNo) e.grade = req; if (f.student.diagnosisDate && f.student.diagnosisDate > todayYmd()) e.diagnosisDate = t('errors.futureDate'); }
     if (i === 4) { if (!f.parent.name.trim()) e.pname = req; if (!f.parent.email.trim()) e.pemail = req; else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(f.parent.email.trim())) e.pemail = t('errors.email'); }
     return e;
   };
@@ -49,13 +49,13 @@ export default function RegisterStudent() {
     if (Object.keys(e0).length) return setStep(0); if (Object.keys(e4).length) return setStep(4);
     setBusy(true); setServerErr(null);
     const payload: RegisterPayload = {
-      student: { name: f.student.name.trim(), code: f.student.code.trim(), grade: `Grade ${f.student.gradeNo}${f.student.section ? '-' + f.student.section : ''}`, diabetesType: f.student.diabetesType, diagnosisDate: f.student.diagnosisDate },
+      student: { name: f.student.name.trim(), grade: `Grade ${f.student.gradeNo}`, diabetesType: f.student.diabetesType, diagnosisDate: f.student.diagnosisDate },
       medical: f.medical, schedule: f.schedule.map((s) => ({ day: s.day, start: s.start, end: s.end || undefined, subject: s.subject, classroom: s.classroom || undefined, type: s.type })),
       exams: f.exams.map((x) => ({ subject: x.subject, date: x.date, time: x.time, type: t(`examType.${x.type}`) })),
       parent: { ...f.parent, name: f.parent.name.trim(), email: f.parent.email.trim().toLowerCase(), relationship: f.parent.relationship.toLowerCase() },
     };
     try { setResult(await api.register(payload)); window.dispatchEvent(new Event('sp:notifications')); }
-    catch (x) { setServerErr(t(errorKey(x))); if (x instanceof ApiError && x.code === 'STUDENT_CODE_EXISTS') { setStep(0); setErrs({ code: t('errors.studentCodeExists') }); } if (x instanceof ApiError && x.code === 'EMAIL_IN_USE') { setStep(4); setErrs({ pemail: t('errors.emailInUse') }); } }
+    catch (x) { setServerErr(t(errorKey(x))); if (x instanceof ApiError && x.code === 'EMAIL_IN_USE') { setStep(4); setErrs({ pemail: t('errors.emailInUse') }); } }
     finally { setBusy(false); }
   };
 
@@ -76,9 +76,7 @@ export default function RegisterStudent() {
 
         {step === 0 && (<div className="grid gap-4 md:grid-cols-2">
           <Field label={t('field.studentName')} htmlFor="r-name" error={E('name')} required><input id="r-name" className="input" value={f.student.name} onChange={(e) => set('student', { name: e.target.value })} maxLength={100} autoComplete="off" aria-invalid={!!E('name')} /></Field>
-          <Field label={t('field.studentId')} htmlFor="r-code" error={E('code')} required><input id="r-code" className="input" dir="ltr" value={f.student.code} onChange={(e) => set('student', { code: e.target.value })} maxLength={40} aria-invalid={!!E('code')} /></Field>
           <Field label={t('field.grade')} htmlFor="r-grade" error={E('grade')} required><select id="r-grade" className="input" value={f.student.gradeNo} onChange={(e) => set('student', { gradeNo: e.target.value })} aria-invalid={!!E('grade')}><option value="">{t('common.select')}</option>{Array.from({ length: 12 }, (_, i) => i + 1).map((n) => <option key={n} value={n}>{t('grade.fmt').replace('{n}', String(n))}</option>)}</select></Field>
-          <Field label={t('field.section')} htmlFor="r-sec"><select id="r-sec" className="input" value={f.student.section} onChange={(e) => set('student', { section: e.target.value })}><option value="">—</option>{['A', 'B', 'C', 'D', 'E', 'F'].map((s) => <option key={s}>{s}</option>)}</select></Field>
           <Field label={t('field.diabetesType')} htmlFor="r-dx"><select id="r-dx" className="input" value={f.student.diabetesType} onChange={(e) => set('student', { diabetesType: e.target.value })}><option value="">{t('common.select')}</option>{['type1', 'type2', 'other', 'unspecified'].map((x) => <option key={x} value={x}>{t(`diabetes.${x}`)}</option>)}</select></Field>
           <Field label={t('field.diagnosisDate')} htmlFor="r-dd" error={E('diagnosisDate')}><input id="r-dd" type="date" max={todayYmd()} className="input" dir="ltr" value={f.student.diagnosisDate} onChange={(e) => set('student', { diagnosisDate: e.target.value })} /></Field>
         </div>)}
@@ -101,7 +99,7 @@ export default function RegisterStudent() {
         {step === 5 && (<div className="space-y-4">
           <p className="text-ink-600">{t('register.reviewHint')}</p>
           <div className="grid gap-4 md:grid-cols-2">
-            <Summary title={label('general')} onEdit={() => setStep(0)} rows={[[t('field.studentName'), f.student.name], [t('field.studentId'), f.student.code], [t('field.grade'), f.student.gradeNo ? `${t('grade.fmt').replace('{n}', f.student.gradeNo)}${f.student.section ? '-' + f.student.section : ''}` : ''], [t('field.diabetesType'), f.student.diabetesType ? t(`diabetes.${f.student.diabetesType}`) : ''], [t('field.diagnosisDate'), f.student.diagnosisDate]]} />
+            <Summary title={label('general')} onEdit={() => setStep(0)} rows={[[t('field.studentName'), f.student.name], [t('field.grade'), f.student.gradeNo ? t('grade.fmt').replace('{n}', f.student.gradeNo) : ''], [t('field.diabetesType'), f.student.diabetesType ? t(`diabetes.${f.student.diabetesType}`) : ''], [t('field.diagnosisDate'), f.student.diagnosisDate]]} />
             <Summary title={label('parent')} onEdit={() => setStep(4)} rows={[[t('field.parentName'), f.parent.name], [t('field.relationship'), t(`relationship.${f.parent.relationship}`)], [t('field.email'), f.parent.email], [t('field.phone'), f.parent.phone], [t('field.preferredContact'), t(`contact.${f.parent.preferredContact}`)]]} />
             <Summary title={label('medical')} onEdit={() => setStep(1)} rows={[[t('register.fieldsFilled'), `${Object.values(f.medical).filter((v) => v.trim()).length} / ${MED.length}`]]} />
             <Summary title={`${label('schedule')} · ${label('exams')}`} onEdit={() => setStep(2)} rows={[[t('register.scheduleItems'), String(f.schedule.length)], [t('register.examItems'), String(f.exams.length)]]} />
@@ -110,11 +108,6 @@ export default function RegisterStudent() {
           {serverErr && <div role="alert" className="flex items-center gap-2 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm font-semibold text-rose-800"><AlertTriangle className="h-5 w-5" aria-hidden />{serverErr}</div>}
         </div>)}
 
-        <div className="flex flex-wrap justify-between gap-3 border-t border-brand-100 pt-5">
-          <button type="button" className="btn-soft" onClick={() => go(step - 1)} disabled={step === 0 || busy}><ArrowLeft className="h-5 w-5 rtl-flip" aria-hidden />{t('common.back')}</button>
-          {step < STEPS.length - 1 ? <button type="button" className="btn-primary" onClick={() => go(step + 1)}>{(step === 2 || step === 3) && !(step === 2 ? f.schedule.length : f.exams.length) ? t('common.skip2') : t('common.next')}<ArrowRight className="h-5 w-5 rtl-flip" aria-hidden /></button>
-            : <button type="button" className="btn-mint" onClick={submit} disabled={busy}>{busy ? <><Spinner />{t('register.creating')}</> : <><UserPlus className="h-5 w-5" aria-hidden />{t('register.create')}</>}</button>}
-        </div>
       </section>
     </div>
   );
@@ -182,8 +175,7 @@ function Done({ result, name, onAnother, preview, setPreview }: { result: Regist
               <button type="button" className="btn-soft btn-sm" onClick={copy}>{copied ? <Check className="h-4 w-4" aria-hidden /> : <Copy className="h-4 w-4" aria-hidden />}{t('register.copy')}</button></dd></div></dl>
           <InfoBanner tone="amber">{t('register.showOnce')}</InfoBanner>
           {em?.sent ? <InfoBanner tone="mint"><span className="flex items-center gap-2 font-bold"><Mail className="h-4 w-4" aria-hidden />{t('register.emailSent', { email: result.parentEmail })}</span></InfoBanner>
-            : <div className="space-y-3"><InfoBanner tone="amber"><b>{t('register.emailNotSent')}</b> {t(em?.configured ? 'register.emailFailed' : 'register.emailNotConfigured')}</InfoBanner>
-              {em?.preview && <button type="button" className="btn-primary" onClick={() => setPreview(true)}><Eye className="h-5 w-5" aria-hidden />{t('register.previewEmail')}</button>}</div>}
+            : <div className="space-y-3"><InfoBanner tone="amber"><b>{t('register.emailNotSent')}</b> {t(em?.configured ? 'register.emailFailed' : 'register.emailNotConfigured')}</InfoBanner></div>}
         </section>
       ) : <InfoBanner tone="mint">{t('register.siblingLinked', { email: result.parentEmail })}</InfoBanner>}
       <div className="flex flex-wrap gap-3"><Link to={`/nurse/students/${result.studentId}`} className="btn-primary">{t('register.openProfile')}</Link><Link to={`/nurse/meals?student=${result.studentId}`} className="btn-mint">{t('action.analyze')}</Link><button type="button" className="btn-soft" onClick={onAnother}>{t('register.another')}</button></div>
