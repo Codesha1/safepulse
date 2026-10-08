@@ -35,7 +35,6 @@ export function buildWelcomeEmail({ parentName, studentName, email, tempPassword
       <div style="font-size:26px;font-weight:700">SafePulse</div><div style="opacity:.9">Smarter Care. Safer School Days. · رعاية أذكى، وأيام دراسية أكثر أمانًا.</div>
     </div>
     <div style="padding:8px 24px">${en}<hr style="border:none;border-top:1px solid #e2e8f0">${ar}</div>
-    <div style="padding:16px 24px;background:#f1f5f9;color:#64748b;font-size:12px">SafePulse is a student-designed prototype for educational and innovation purposes. It does not replace professional medical advice or an individual medical care plan.<br>SafePulse نموذج أولي صممته طالبات لأغراض تعليمية وابتكارية، ولا يغني عن الاستشارة الطبية المتخصصة أو خطة الرعاية الفردية.</div>
   </div></body></html>`;
   const text = `Welcome to SafePulse\nAccount: ${email}\nTemporary password: ${tempPassword}\nLogin: ${url}\nPlease change this password after your first login.\n\nمرحبًا بك في SafePulse\nالبريد: ${email}\nكلمة المرور المؤقتة: ${tempPassword}\nالدخول: ${url}\nيُرجى تغيير كلمة المرور بعد أول دخول.`;
   return { to: email, subject, html, text };
