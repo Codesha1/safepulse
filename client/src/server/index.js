@@ -6,7 +6,7 @@ import path from 'node:path';
 import fs from 'node:fs';
 import { config } from './config.js';
 import { db } from './db/index.js';
-import { loadUser } from './middleware/auth.js';
+import { loadUser, wrap } from './middleware/auth.js';
 import { seedIfEmpty } from './db/seed.js';
 import authRoutes from './routes/auth.js';
 import studentRoutes from './routes/students.js';
@@ -47,7 +47,7 @@ app.use('/api', (req, res, next) => {
   next();
 });
 
-app.get('/api/health', (_req, res) => res.json({ ok: true, demoMode: config.demoMode, ai: aiConfigured() ? 'connected' : 'demo', email: emailConfigured() ? 'connected' : 'preview' }));
+app.get('/api/health', wrap(async (_req, res) => { await db.prepare('SELECT 1').get(); res.json({ ok: true, demoMode: config.demoMode, ai: aiConfigured() ? 'connected' : 'demo', email: emailConfigured() ? 'connected' : 'preview' }); }));
 // Locates the team / school-logo images the owner dropped into client/public/assets (or dist/assets after a build).
 app.get('/api/brand', (_req, res) => {
   const dirs = [path.join(config.root, 'dist', 'assets'), path.join(config.root, 'client', 'public', 'assets')];
@@ -81,7 +81,7 @@ app.use((err, _req, res, _next) => {
   res.status(500).json({ error: 'SERVER_ERROR' });
 });
 
-if (config.demoMode) seedIfEmpty();
+if (config.demoMode) await seedIfEmpty();
 
 app.listen(config.port, () => {
   console.log(`\n  SafePulse running → ${config.appUrl}  (${config.isProd ? 'production' : 'development'}, demo mode ${config.demoMode ? 'ON' : 'off'})`);

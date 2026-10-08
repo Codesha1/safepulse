@@ -23,7 +23,7 @@ r.post('/analyze', requireAuth, nurse, (req, res, next) => {
 }, wrap(async (req, res) => {
   const b = req.body || {};
   const sid = Number(b.studentId);
-  const student = Number.isInteger(sid) && db.prepare('SELECT * FROM students WHERE id=?').get(sid);
+  const student = Number.isInteger(sid) && await db.prepare('SELECT * FROM students WHERE id=?').get(sid);
   if (!student) return res.status(400).json({ error: 'VALIDATION', field: 'studentId' });
   const mealType = ['breakfast', 'lunch', 'snack'].includes(b.mealType) ? b.mealType : 'lunch';
 
@@ -54,43 +54,44 @@ r.post('/analyze', requireAuth, nurse, (req, res, next) => {
   const foodsJson = JSON.stringify(result.foods.map((f) => ({
     key: f.key, name: f.name, portion: f.portion, carbs: f.carbs, protein: f.protein, fat: f.fat, fiber: f.fiber, drink: !!f.drink, sugary: !!f.sugary,
   })));
-  const par = db.prepare('SELECT user_id FROM parents WHERE id=?').get(student.parent_id);
+  const par = await db.prepare('SELECT user_id FROM parents WHERE id=?').get(student.parent_id);
 
-  const mealId = db.transaction(() => {
-    const id = db.prepare(`INSERT INTO meals (student_id,meal_type,source,estimate_mode,image_key,detected_foods,carbs,protein,fat,fiber,status,reason_en,reason_ar,suggestions,created_by,created_at)
+  const NOTIF = `INSERT INTO notifications (user_id,student_id,meal_id,kind,severity,title_en,title_ar,body_en,body_ar,suggestion_en,suggestion_ar,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
+  const mealId = await db.tx(async (t) => {
+    const id = (await t.prepare(`INSERT INTO meals (student_id,meal_type,source,estimate_mode,image_key,detected_foods,carbs,protein,fat,fiber,status,reason_en,reason_ar,suggestions,created_by,created_at)
       VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`).run(student.id, mealType, source, result.mode === 'ai' ? 'ai' : 'demo', imageKey, foodsJson,
-      nutrition.carbs, nutrition.protein, nutrition.fat, nutrition.fiber, assessment.status, assessment.reason.en, assessment.reason.ar, JSON.stringify(suggestions), req.user.id, now).lastInsertRowid;
-    db.prepare('INSERT INTO ai_insights (student_id,meal_id,kind,payload,created_at) VALUES (?,?,?,?,?)')
-      .run(student.id, id, 'meal_assessment', JSON.stringify({ status: assessment.status, flags: assessment.flags, mode: result.mode }), now);
-    const ins = db.prepare(`INSERT INTO notifications (user_id,student_id,meal_id,kind,severity,title_en,title_ar,body_en,body_ar,suggestion_en,suggestion_ar,created_at) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`);
-    if (par) ins.run(par.user_id, student.id, id, 'meal', note.severity, note.title.en, note.title.ar, note.body.en, note.body.ar, note.suggestion.en, note.suggestion.ar, now);
+      nutrition.carbs, nutrition.protein, nutrition.fat, nutrition.fiber, assessment.status, assessment.reason.en, assessment.reason.ar, JSON.stringify(suggestions), req.user.id, now)).lastInsertRowid;
+    const more = [['INSERT INTO ai_insights (student_id,meal_id,kind,payload,created_at) VALUES (?,?,?,?,?)',
+      [student.id, id, 'meal_assessment', JSON.stringify({ status: assessment.status, flags: assessment.flags, mode: result.mode }), now]]];
+    if (par) more.push([NOTIF, [par.user_id, student.id, id, 'meal', note.severity, note.title.en, note.title.ar, note.body.en, note.body.ar, note.suggestion.en, note.suggestion.ar, now]]);
     if (assessment.status !== 'GREEN') { // nurse inbox follow-up
-      ins.run(req.user.id, student.id, id, 'meal', note.severity, 'Meal flagged for review', 'وجبة بحاجة إلى مراجعة',
+      more.push([NOTIF, [req.user.id, student.id, id, 'meal', note.severity, 'Meal flagged for review', 'وجبة بحاجة إلى مراجعة',
         `${student.full_name}: meal marked "${assessment.status === 'YELLOW' ? 'Review' : 'Needs Attention'}". The parent has been notified in SafePulse.`,
         `${student.full_name}: صُنِّفت الوجبة «${assessment.status === 'YELLOW' ? 'تحتاج مراجعة' : 'تحتاج انتباهًا'}». تم إشعار ولي الأمر داخل SafePulse.`,
-        "Review the student's individual care plan.", 'يُرجى مراجعة خطة الرعاية الفردية للطالبة.', now);
+        "Review the student's individual care plan.", 'يُرجى مراجعة خطة الرعاية الفردية للطالبة.', now]]);
     }
+    await t.batch(more);
     return id;
-  })();
+  });
 
   res.status(201).json({
-    meal: mealOut(db.prepare('SELECT * FROM meals WHERE id=?').get(mealId)),
+    meal: mealOut(await db.prepare('SELECT * FROM meals WHERE id=?').get(mealId)),
     parentNotified: !!par,
     mode: result.mode,
   });
 }));
 
 // Meal image (nurse any · parent own child only)
-r.get('/:id/image', requireAuth, (req, res) => {
-  const m = db.prepare('SELECT m.image_key, s.parent_id FROM meals m JOIN students s ON s.id=m.student_id WHERE m.id=?').get(Number(req.params.id));
+r.get('/:id/image', requireAuth, wrap(async (req, res) => {
+  const m = await db.prepare('SELECT m.image_key, s.parent_id FROM meals m JOIN students s ON s.id=m.student_id WHERE m.id=?').get(Number(req.params.id));
   if (!m || !m.image_key) return res.status(404).end();
   if (req.user.role === 'PARENT') {
-    const p = db.prepare('SELECT id FROM parents WHERE user_id=?').get(req.user.id);
+    const p = await db.prepare('SELECT id FROM parents WHERE user_id=?').get(req.user.id);
     if (!p || p.id !== m.parent_id) return res.status(404).end();
   }
-  const file = getMealImage(m.image_key);
-  if (!file) return res.status(404).end();
-  res.set('Cache-Control', 'private, max-age=3600').set('X-Content-Type-Options', 'nosniff').sendFile(file);
-});
+  const img = await getMealImage(m.image_key);
+  if (!img) return res.status(404).end();
+  res.set('Content-Type', img.mime).set('Cache-Control', 'private, max-age=3600').set('X-Content-Type-Options', 'nosniff').send(img.data);
+}));
 
 export default r;

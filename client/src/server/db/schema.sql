@@ -1,5 +1,3 @@
-PRAGMA foreign_keys = ON;
-
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   email TEXT NOT NULL UNIQUE COLLATE NOCASE,
@@ -106,4 +104,11 @@ CREATE TABLE IF NOT EXISTS wellness_plans (
   student_id INTEGER NOT NULL REFERENCES students(id) ON DELETE CASCADE,
   category TEXT NOT NULL, items TEXT NOT NULL, generated_at TEXT NOT NULL,
   UNIQUE(student_id, category)
+);
+-- Meal photos live in the database too, so they survive on hosts with a temporary disk.
+CREATE TABLE IF NOT EXISTS meal_images (
+  key TEXT PRIMARY KEY,
+  mime TEXT NOT NULL,
+  data BLOB NOT NULL,
+  created_at TEXT NOT NULL DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now'))
 );

@@ -25,8 +25,9 @@ export const config = {
   demoMode: (process.env.DEMO_MODE ?? 'true') === 'true',
   demoPassword: process.env.DEMO_PASSWORD || 'SafePulse-Demo-2026',
   cookieSecure: process.env.COOKIE_SECURE === 'true',
-  databasePath: path.resolve(root, process.env.DATABASE_PATH || './data/safepulse.db'),
-  storageDir: path.resolve(root, process.env.STORAGE_DIR || './data/uploads'),
+  // Local file (default) or a hosted Turso database:  DATABASE_URL=libsql://your-db.turso.io  +  DATABASE_AUTH_TOKEN=...
+  databaseUrl: process.env.DATABASE_URL || 'file:' + path.resolve(root, './data/safepulse.db'),
+  databaseAuthToken: process.env.DATABASE_AUTH_TOKEN || undefined,
   ai: {
     apiKey: process.env.AI_API_KEY || '',
     model: process.env.AI_MODEL || 'claude-sonnet-5-5',
