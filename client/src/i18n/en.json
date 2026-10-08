@@ -22,7 +22,6 @@
   "brand": {
     "tagline": "Smarter Care. Safer School Days.",
     "byTopTech": "Built by Top Tech",
-    "prototype": "Student-designed prototype",
     "teamAlt": "The Top Tech team",
     "logoAlt": "School logo"
   },
@@ -230,7 +229,6 @@
     "newPassword": "New password",
     "confirmPassword": "Confirm new password",
     "studentName": "Student name",
-    "studentId": "Student ID",
     "grade": "Grade",
     "section": "Section",
     "diabetesType": "Diabetes type / category",
