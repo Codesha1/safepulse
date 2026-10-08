@@ -25,4 +25,4 @@ function bind(ex, runBatch) {
 
 export const db = {
   ...bind(client, (l) => client.batch(l, 'write')),
-  async bulk(list, size = 300) { for (let i = 0; i < list.length; i
+  async bulk(list, size = 300) { for (let i = 0; i < list.length; i += size) await db.batch(list.slice(i, i + size)); },
