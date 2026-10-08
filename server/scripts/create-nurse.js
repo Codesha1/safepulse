@@ -12,11 +12,12 @@ if (!email || !fullName || !/^\S+@\S+\.\S+$/.test(email)) {
 }
 const password = passwordArg || crypto.randomBytes(9).toString('base64url');
 if (password.length < 10) { console.error('Password must be at least 10 characters.'); process.exit(1); }
-if (db.prepare('SELECT 1 FROM users WHERE email = ?').get(email)) { console.error('That email already exists.'); process.exit(1); }
+if (await db.prepare('SELECT 1 FROM users WHERE email = ?').get(email)) { console.error('That email already exists.'); process.exit(1); }
 
 const hash = bcrypt.hashSync(password, 12);
-db.transaction(() => {
-  const r = db.prepare("INSERT INTO users (email,password_hash,role,full_name,must_change_password,is_demo) VALUES (?,?,'NURSE',?,0,0)").run(email.trim(), hash, fullName.trim());
-  db.prepare('INSERT INTO nurses (user_id) VALUES (?)').run(r.lastInsertRowid);
-})();
+await db.tx(async (t) => {
+  const r = await t.prepare("INSERT INTO users (email,password_hash,role,full_name,must_change_password,is_demo) VALUES (?,?,'NURSE',?,0,0)").run(email.trim(), hash, fullName.trim());
+  await t.prepare('INSERT INTO nurses (user_id) VALUES (?)').run(r.lastInsertRowid);
+});
 console.log(`\n  Nurse account created.\n  Email:    ${email}\n  Password: ${passwordArg ? '(the one you typed)' : password}\n`);
+process.exit(0);

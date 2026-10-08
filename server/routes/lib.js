@@ -22,10 +22,12 @@ export const scheduleOut = (e) => ({ id: e.id, day: e.day_of_week, start: e.star
 export const examOut = (e) => ({ id: e.id, subject: e.subject, date: e.exam_date, time: e.exam_time, type: e.exam_type });
 export const glucoseOut = (g) => ({ id: g.id, value: g.value_mgdl, context: g.context, recordedAt: g.recorded_at });
 
-export function studentSummary(s) {
-  const glucose = db.prepare('SELECT * FROM glucose_readings WHERE student_id=? ORDER BY recorded_at DESC LIMIT 1').get(s.id);
-  const meal = db.prepare('SELECT * FROM meals WHERE student_id=? ORDER BY created_at DESC LIMIT 1').get(s.id);
-  const events = db.prepare('SELECT * FROM schedule_events WHERE student_id=?').all(s.id);
+export async function studentSummary(s) {
+  const [glucose, meal, events] = await Promise.all([
+    db.prepare('SELECT * FROM glucose_readings WHERE student_id=? ORDER BY recorded_at DESC LIMIT 1').get(s.id),
+    db.prepare('SELECT * FROM meals WHERE student_id=? ORDER BY created_at DESC LIMIT 1').get(s.id),
+    db.prepare('SELECT * FROM schedule_events WHERE student_id=?').all(s.id),
+  ]);
   const nxt = nextActivity(events);
   const weekAgo = new Date(Date.now() - 7 * 864e5).toISOString();
   let status = 'none';
